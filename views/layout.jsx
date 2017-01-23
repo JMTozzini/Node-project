@@ -1,4 +1,5 @@
 var React = require('react');
+var AppBarExampleIco = require('./app-bar');
 
 class Layout extends React.Component {
   render() {
@@ -6,15 +7,9 @@ class Layout extends React.Component {
       <html>
         <head>
           <title>{this.props.title}</title>
-          <link rel="stylesheet" href="/stylesheets/style.css" />
-          <script dangerouslySetInnerHTML={{__html:`
-            // This is making use of ES6 template strings, which allow for
-            // multiline strings. We specified "{jsx: {harmony: true}}" when
-            // creating the engine in app.js to get this feature.
-            console.log("hello world");
-          `}}/>
         </head>
         <body>
+					<AppBarExampleIco title={this.props.title}/>
           {this.props.children}
         </body>
       </html>
