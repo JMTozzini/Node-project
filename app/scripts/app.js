@@ -9,4 +9,32 @@
  * Main module of the application.
  */
 angular
-  .module('nodeProjectApp', []);
+  .module('nodeProjectApp', [
+    'ngAnimate',
+    'ngCookies',
+    'ngResource',
+    'ngRoute',
+    'ngSanitize',
+		'ngMaterial'
+  ])
+  .config(function ($routeProvider) {
+    $routeProvider
+      .when('/', {
+        templateUrl: 'views/main.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
+      })
+      .when('/create-project', {
+        templateUrl: 'views/create-project.html',
+        controller: 'CreateProjectCtrl',
+        controllerAs: 'createProject'
+      })
+      .when('/projects', {
+        templateUrl: 'views/projects.html',
+        controller: 'ProjectsCtrl',
+        controllerAs: 'projects'
+      })
+      .otherwise({
+        redirectTo: '/'
+      });
+  });
