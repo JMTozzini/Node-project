@@ -1,0 +1,12 @@
+body {
+  padding: 0;
+}
+
+md-content {
+  padding: 0;
+	height: 85%;
+}
+
+footer {
+	padding-top: 15px;
+}

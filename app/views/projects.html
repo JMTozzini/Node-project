@@ -1,0 +1,26 @@
+<div layout="row">
+
+<md-sidenav
+		class="md-sidenav-left"
+		md-component-id="left"
+		md-is-locked-open="$mdMedia('gt-md')"
+		md-whiteframe="4"
+		>
+		<md-toolbar class="md-theme-indigo">
+      <h3 class="md-toolbar-tools">{{user}}</h1>
+    </md-toolbar>
+		<md-button ng-click="create()" class="md-raised md-primary">Créer un projet</md-button>
+
+</md-sidenav>
+
+<md-list flex>
+  <md-subheader class="md-no-sticky">Mes Projets</md-subheader>
+  <md-list-item class="md-3-line" ng-repeat="project in projects" ng-click="null">
+    <div class="md-list-item-text" layout="column">
+      <h3>{{project.name}}</h3>
+      <h4>{{project.description}}</h4>
+    </div>
+  </md-list-item>
+</md-list>
+
+</div>
