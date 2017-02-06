@@ -8,10 +8,15 @@
  * Controller of the nodeProjectApp
  */
 angular.module('nodeProjectApp')
-  .controller('ProjectCtrl', function($scope, $location, $routeParams, serviceAjax) {
+  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, serviceAjax) {
 
 		$scope.backProjects = function() {
 			$location.path('/projects');
+		}
+
+		$scope.toggleRight = function() {
+			$mdSidenav('right')
+		    .toggle()
 		}
 
     $scope.loadProject = function() {
