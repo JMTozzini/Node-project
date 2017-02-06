@@ -34,6 +34,11 @@ angular
         controller: 'ProjectsCtrl',
         controllerAs: 'projects'
       })
+      .when('/project/:projectId', {
+        templateUrl: 'views/project.html',
+        controller: 'ProjectCtrl',
+        controllerAs: 'project'
+      })
       .otherwise({
         redirectTo: '/'
       });

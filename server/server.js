@@ -1,5 +1,7 @@
-const app = require('express')();
-const bodyParser = require('body-parser');
+const app = require('express')(),
+			bodyParser = require('body-parser'),
+			_ = require('lodash');
+
 const mongoLib = require('./lib/mongo.js');
 
 
@@ -22,6 +24,16 @@ app.post('/create-project', function(req, res) {
 	});
 });
 
+app.get('/users', function(req, res) {
+	console.log('Call server GET users');
+	mongoLib.getUsers((err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
 app.get('/user/:login', function(req, res) {
 	console.log('Call server GET user ' + req.params.login);
 	mongoLib.getUser(req.params.login, (err, data) => {
@@ -31,7 +43,6 @@ app.get('/user/:login', function(req, res) {
 		res.send(data);
 	});
 });
-
 
 app.get('/userById/:id', function(req, res) {
 	console.log('Call server GET user ' + req.params.id);
@@ -54,8 +65,18 @@ app.post('/user', function(req, res) {
 });
 
 app.get('/projects', function(req, res) {
-	console.log('Call server GET projects ' + req.query.userId);
+	console.log('Call server GET projects ' + req.query.userId || 'all' );
 	mongoLib.getProjects(req.query.userId, (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
+app.get('/project/:projectId', function(req, res) {
+	console.log('Call server GET project ' + req.params.projectId);
+	mongoLib.getProject(req.params.projectId, (err, data) => {
 		if (err) {
 			return console.error(err);
 		}

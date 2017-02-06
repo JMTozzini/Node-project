@@ -55,6 +55,13 @@ function getUser(login, callback) {
 	], callback)
 }
 
+function getUsers(callback) {
+	async.waterfall([
+		connectDb,
+		get.bind(null, {}, 'users')
+	], callback)
+}
+
 function getUserById(userId, callback) {
 	async.waterfall([
 		connectDb,
@@ -63,16 +70,25 @@ function getUserById(userId, callback) {
 }
 
 function getProjects(userId, callback) {
+	var query = userId ? {owner: userId} : {}
 	async.waterfall([
 		connectDb,
-		get.bind(null, {owner: userId}, 'projects')
+		get.bind(null, query, 'projects')
+	], callback)
+}
+
+function getProject(projectId, callback) {
+	async.waterfall([
+		connectDb,
+		get.bind(null, {_id: new ObjectId(projectId)}, 'projects')
 	], callback)
 }
 
 module.exports = {
 	insertProject,
 	getProjects,
+	getProject,
 	createUser,
-	getUser,
-	getUserById
+	getUsers,
+	getUser
 };

@@ -11,7 +11,7 @@ angular.module('nodeProjectApp')
   .controller('MainCtrl', function ($scope, $location, $cookies, serviceAjax) {
 
 		$scope.connect = function (user) {
-			serviceAjax.getUser(user).then(
+			serviceAjax.getUser(user.login).then(
 				function successCallback(response) {
 					if (!response.data.length) {
 						$scope.message = 'Utilisateur inexistant';
