@@ -1,4 +1,6 @@
 const app = require('express')(),
+			http = require('http').Server(app),
+			io = require('socket.io')(http),
 			bodyParser = require('body-parser'),
 			_ = require('lodash');
 
@@ -84,6 +86,21 @@ app.get('/project/:projectId', function(req, res) {
 	});
 });
 
-app.listen(3000, () => {
+io.on('connection', function(socket){
+  console.log('a user connected');
+	socket.on('disconnect', function(){
+    console.log('user disconnected');
+  });
+	socket.on('chat message', function(msg) {
+		mongoLib.addMessage(msg, (err, data) => {
+			if (err) {
+				return console.error(err);
+			}
+	    io.emit('chat message', msg);
+		});
+  });
+});
+
+http.listen(3000, () => {
   console.log('listening on 3000');
 });

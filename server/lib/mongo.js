@@ -22,9 +22,18 @@ function insert(data, collectionName, db, callback) {
 	});
 }
 
+function update(query, data, collectionName, db, callback) {
+	var collection = db.collection(collectionName);
+	collection.update(query, data, (err, result) => {
+		if(err) {
+			return callback(err);
+		}
+		callback(null, result);
+	});
+}
+
 function get(query, collectionName, db, callback) {
 	var collection = db.collection(collectionName);
-	console.log(query);
 	collection.find(query)
 		.toArray((err, result) => {
 			if(err) {
@@ -38,6 +47,13 @@ function insertProject(project, callback) {
 	async.waterfall([
 		connectDb,
 		insert.bind(null, project, 'projects')
+	], callback)
+}
+
+function addMessage(msg, callback) {
+	async.waterfall([
+		connectDb,
+		update.bind(null, {_id: new ObjectId(msg.project._id)}, {$push: {messages: {msg: msg.msg, sender: msg.sender, date: msg.date}}}, 'projects')
 	], callback)
 }
 
@@ -90,5 +106,6 @@ module.exports = {
 	getProject,
 	createUser,
 	getUsers,
-	getUser
+	getUser,
+	addMessage
 };

@@ -58,9 +58,11 @@
     <script src="bower_components/angular-messages/angular-messages.js"></script>
     <script src="bower_components/angular-material/angular-material.js"></script>
     <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-moment/angular-moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
-
+		<script src="http://localhost:3000/socket.io/socket.io.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
@@ -69,6 +71,8 @@
 				<script src="scripts/controllers/projects.js"></script>
         <script src="scripts/controllers/project.js"></script>
         <script src="scripts/services/service-ajax.js"></script>
+        <script src="scripts/filters/fromnow.js"></script>
+        <script src="scripts/filters/user.js"></script>
         <!-- endbuild -->
 </body>
 </html>
