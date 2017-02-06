@@ -13,14 +13,14 @@ angular.module('nodeProjectApp')
       $location.path("/create-project");
     };
 
-		$scope.getUser = function() {
-			serviceAjax.getUserById($cookies.get('login')).then(
+		$scope.getUsers = function(userId) {
+			serviceAjax.getUsers().then(
 				function successCallback(response) {
 					if (!response.data.length) {
 						$scope.message = 'Utilisateur inexistant';
 					} else {
-						$scope.user = response.data[0].login;
-						$location.path('/projects');
+						$scope.users = response.data;
+						$scope.connectedUser = _.find(response.data, {_id: $cookies.get('login')}).login;
 					}
 				},
 				function errorCallback(response) {
@@ -28,12 +28,14 @@ angular.module('nodeProjectApp')
 				}
 			);
 		};
-    $scope.getUser();
+    $scope.getUsers();
 
-		// $scope.user = $cookies.get('login');
+		$scope.getUser = function(userId) {
+			return _.find($scope.users, {_id: userId}).login
+		}
 
     $scope.loadProjects = function() {
-      serviceAjax.getProjects($cookies.get('login')).then(
+      serviceAjax.getProjects().then(
 				function successCallback(response) {
 					if(response.data.length) {
 						$scope.projects = response.data
@@ -47,4 +49,8 @@ angular.module('nodeProjectApp')
 			);
     };
     $scope.loadProjects();
+
+		$scope.openProject = function(projectId) {
+			$location.path('/project/' + projectId);
+		}
   });

@@ -29,6 +29,14 @@ angular.module('nodeProjectApp')
         return $http(req);
       },
 
+      getUsers: function () {
+				var req = {
+	        method: 'GET',
+	        url: host + '/users'
+	      };
+        return $http(req);
+      },
+
       getUserById: function (userId) {
 				var req = {
 	        method: 'GET',
@@ -51,6 +59,14 @@ angular.module('nodeProjectApp')
 	        method: 'GET',
 	        url: host + '/projects',
 					params: {userId}
+	      };
+        return $http(req);
+      },
+
+      getProject: function (projectId) {
+				var req = {
+	        method: 'GET',
+	        url: host + '/project/' + projectId,
 	      };
         return $http(req);
       }

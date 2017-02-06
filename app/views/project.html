@@ -1,0 +1,19 @@
+<div layout="row" style="height:500px;">
+	<md-sidenav
+			class="md-sidenav-left"
+			md-component-id="left"
+			md-is-locked-open="$mdMedia('gt-md')"
+			md-whiteframe="4"
+			flex
+			>
+			<md-toolbar class="md-hue-3">
+	      <h3 class="md-toolbar-tools">{{user}}</h1>
+	    </md-toolbar>
+			<md-button ng-click="backProjects()">Retour aux projets</md-button>
+
+	</md-sidenav>
+	<md-content layout-padding flex>
+	  <h3>{{project.name}}</h3>
+	  <p>{{project.description}}</p>
+	</md-content>
+</div>
