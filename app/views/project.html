@@ -6,14 +6,38 @@
 			md-whiteframe="4"
 			flex
 			>
-			<md-toolbar class="md-hue-3">
+			<md-toolbar class="md-theme-light">
 	      <h3 class="md-toolbar-tools">{{user}}</h1>
 	    </md-toolbar>
 			<md-button ng-click="backProjects()">Retour aux projets</md-button>
-
+      <md-button ng-click="toggleRight()"> Chatter </md-button>
 	</md-sidenav>
 	<md-content layout-padding flex>
 	  <h3>{{project.name}}</h3>
 	  <p>{{project.description}}</p>
 	</md-content>
+  <md-sidenav  class="md-sidenav-right md-whiteframe-4dp" md-component-id="right" flex>
+    <md-toolbar class="md-theme-light">
+      <h1 class="md-toolbar-tools">Chat</h1>
+    </md-toolbar>
+    <md-content layout-padding layout="column" layout-align="center">
+			<div layout="column" class="md-form" flex="25">
+				<md-input-container flex>
+					<label>Message</label>
+					<input autocomplete="off" ng-model="msg"/>
+				</md-input-container>
+				<md-button class="md-raised md-primary" ng-click="sendMsg()" style="margin-top:30px;" flex="25">Envoyer</md-button>
+			</div>
+			<section flex>
+				<md-list>
+				  <md-list-item class="md-3-line" ng-repeat="message in messages">
+				    <div class="md-list-item-text" layout="column">
+							<h3>{{message.msg}}</h3>
+				      <p>{{users | user:message.sender}} {{message.date | fromNow}}</p>
+				    </div>
+				  </md-list-item>
+				</md-list>
+			</section>
+    </md-content>
+  </md-sidenav>
 </div>
