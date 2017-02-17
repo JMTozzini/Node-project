@@ -11,6 +11,8 @@
 angular.module('nodeProjectApp')
   .filter('user', function () {
     return function (users, id) {
-      return _.find(users, {_id: id}).login;
+			var user = _.find(users, {_id: id});
+
+      return user && user.login;
     };
   });
