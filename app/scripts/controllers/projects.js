@@ -9,9 +9,13 @@
  */
 angular.module('nodeProjectApp')
   .controller('ProjectsCtrl', function($scope, $location, $cookies, serviceAjax) {
-    $scope.create = function() {
+
+		$scope.create = function() {
       $location.path("/create-project");
     };
+
+		$scope.showBack = false;
+		$scope.showChat = false;
 
 		$scope.getUsers = function(userId) {
 			serviceAjax.getUsers().then(
