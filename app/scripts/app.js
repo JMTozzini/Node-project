@@ -16,6 +16,7 @@ angular
     'ngRoute',
     'ngSanitize',
 		'ngMaterial',
+		'ngMessages',
 		'angularMoment'
   ])
   .config(function ($routeProvider) {

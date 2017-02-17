@@ -8,7 +8,7 @@
  * Controller of the nodeProjectApp
  */
 angular.module('nodeProjectApp')
-  .controller('ProjectsCtrl', function($scope, $location, $cookies, serviceAjax) {
+  .controller('ProjectsCtrl', function($scope, $location, $cookies, $mdDialog, serviceAjax) {
 
 		$scope.create = function() {
       $location.path("/create-project");
@@ -56,5 +56,48 @@ angular.module('nodeProjectApp')
 
 		$scope.openProject = function(projectId) {
 			$location.path('/project/' + projectId);
+		}
+
+		$scope.open = true;
+
+		$scope.customFullscreen = false;
+
+		$scope.showCreate = function(ev) {
+			$mdDialog.show({
+				controller: DialogController,
+				templateUrl: '../../views/create-project.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: true,
+				fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+	    }).then(function() {
+		    $scope.loadProjects();
+	      $scope.apply();
+			});
+		};
+
+		function DialogController($scope, $mdDialog) {
+
+	    $scope.create = function(project) {
+				project.owner = $cookies.get('login');
+				serviceAjax.createProject(project).then(
+					function successCallback(response) {
+						$mdDialog.hide();
+					},
+					function errorCallback(response) {
+					}
+				);
+			};
+
+	    $scope.reset = function() {
+	      $scope.project = {};
+	    };
+
+	    $scope.reset();
+
+
+    	$scope.cancel = function() {
+	      $mdDialog.cancel();
+	    };
 		}
   });
