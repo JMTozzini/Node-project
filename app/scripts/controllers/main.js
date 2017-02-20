@@ -17,8 +17,6 @@ angular.module('nodeProjectApp')
 						$scope.message = 'Utilisateur inexistant';
 					} else {
 						$cookies.put('login', response.data[0]._id);
-						// $scope.message = 'Connexion réussie';
-						// $scope.message = $cookies.get('login');
 						$location.path('/projects');
 					}
 				},

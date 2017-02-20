@@ -24,7 +24,7 @@ angular.module('nodeProjectApp')
       getUser: function (user) {
 				var req = {
 	        method: 'GET',
-	        url: host + '/user/' + user.login
+	        url: host + '/user/' + user
 	      };
         return $http(req);
       },
