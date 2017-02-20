@@ -1,28 +1,36 @@
-<div layout="row">
-	<md-sidenav
-			class="md-sidenav-left"
-			md-component-id="left"
-			md-is-locked-open="$mdMedia('gt-md')"
-			md-whiteframe="4"
-			flex
-			>
-			<md-toolbar class="md-theme-light">
-	      <h3 class="md-toolbar-tools">{{connectedUser}}</h1>
-	    </md-toolbar>
-			<md-button ng-click="backProjects()">Retour aux projets</md-button>
+<md-dialog aria-label="Create project" style="min-width:75%;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Créer un projet</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">
+						<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+						  <path fill="#FFFFFF" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+						</svg>
+					</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
 
-	</md-sidenav>
+    <md-dialog-content style="padding:20px;">
+      <div class="md-dialog-content">
+				<md-input-container>
+					<label>Name</label>
+					<input ng-model="project.name"/>
+				</md-input-container>
+				<md-input-container class="md-block">
+					<label>Description</label>
+					<textarea ng-model="project.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
+				</md-input-container>
+      </div>
+    </md-dialog-content>
 
-	<div flex layout="column" class="md-form" layout-align="center">
-			<md-input-container>
-			  <label>Name</label>
-			  <input ng-model="project.name"/>
-			</md-input-container>
-			<md-input-container class="md-block">
-	      <label>Description</label>
-	      <textarea ng-model="project.description" md-maxlength="500" rows="5" md-select-on-focus></textarea>
-	    </md-input-container>
+    <md-dialog-actions layout="row">
 			<md-button class="md-primary" type="submit" ng-click="reset()">Effacer</md-button>
+      <span flex></span>
 			<md-button class="md-raised md-primary" type="submit" ng-click="create(project)">Créer</md-button>
-	</div>
-</div>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

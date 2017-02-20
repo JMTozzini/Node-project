@@ -14,6 +14,9 @@ angular.module('nodeProjectApp')
 			$location.path('/projects');
 		};
 
+		$scope.showBack = true;
+		$scope.showChat = true;
+
 		$scope.toggleRight = function() {
 			$mdSidenav('right').toggle();
 		};
