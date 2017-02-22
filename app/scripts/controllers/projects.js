@@ -14,8 +14,8 @@ angular.module('nodeProjectApp')
       $location.path("/create-project");
     };
 
-		$scope.showBack = false;
-		$scope.showChat = false;
+		// $scope.showBack = false;
+		// $scope.showChat = false;
 
 		$scope.getUsers = function(userId) {
 			serviceAjax.getUsers().then(
@@ -64,7 +64,7 @@ angular.module('nodeProjectApp')
 
 		$scope.showCreate = function(ev) {
 			$mdDialog.show({
-				controller: DialogController,
+				controller: createProjectCtrl,
 				templateUrl: '../../views/create-project.html',
 				parent: angular.element(document.body),
 				targetEvent: ev,
@@ -76,7 +76,7 @@ angular.module('nodeProjectApp')
 			});
 		};
 
-		function DialogController($scope, $mdDialog) {
+		function createProjectCtrl($scope, $mdDialog) {
 
 	    $scope.create = function(project) {
 				project.owner = $cookies.get('login');

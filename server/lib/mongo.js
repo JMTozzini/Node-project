@@ -100,10 +100,18 @@ function getProject(projectId, callback) {
 	], callback)
 }
 
+function updateProject(projectId, data, callback) {
+	async.waterfall([
+		connectDb,
+		update.bind(null, {_id: new ObjectId(projectId)}, data, 'projects')
+	], callback)
+}
+
 module.exports = {
 	insertProject,
 	getProjects,
 	getProject,
+	updateProject,
 	createUser,
 	getUsers,
 	getUser,

@@ -21,6 +21,15 @@ angular.module('nodeProjectApp')
         return $http(req);
       },
 
+      updateProject: function (project) {
+				var req = {
+	        method: 'PUT',
+	        url: host + '/project/' + project._id,
+					data: project
+	      };
+        return $http(req);
+      },
+
       getUser: function (user) {
 				var req = {
 	        method: 'GET',

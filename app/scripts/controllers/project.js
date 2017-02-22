@@ -8,7 +8,7 @@
  * Controller of the nodeProjectApp
  */
 angular.module('nodeProjectApp')
-  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, $cookies, moment, serviceAjax) {
+  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, $cookies, $mdDialog, moment, serviceAjax) {
 
 		$scope.backProjects = function() {
 			$location.path('/projects');
@@ -16,13 +16,11 @@ angular.module('nodeProjectApp')
 
 		$scope.showBack = true;
 		$scope.showChat = true;
+		$scope.showEdit = true;
 
 		$scope.toggleRight = function() {
 			$mdSidenav('right').toggle();
 		};
-
-		// $scope.toggleRight();
-		// $scope.messages = [];
 
 		$scope.socket = io.connect('http://localhost:3000');
 
@@ -72,5 +70,41 @@ angular.module('nodeProjectApp')
 
 		function sortMsg(msg) {
 			return - new Date(msg.date);
+		}
+
+		$scope.editProject = function(ev) {
+			$mdDialog.show({
+				controller: editProjectCtrl,
+				templateUrl: '../../views/edit-project.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: true,
+				locals: {projectToPass: $scope.project},
+				fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+	    })
+		};
+
+
+		function editProjectCtrl($scope, $mdDialog, projectToPass) {
+
+			$scope.project = projectToPass;
+
+	    $scope.update = function(project) {
+				serviceAjax.updateProject(project).then(
+					function successCallback(response) {
+						$mdDialog.hide();
+					},
+					function errorCallback(response) {
+					}
+				);
+			};
+
+	    $scope.reset = function() {
+	      $scope.project = {};
+	    };
+
+    	$scope.cancel = function() {
+	      $mdDialog.cancel();
+	    };
 		}
   });
