@@ -78,6 +78,15 @@ angular.module('nodeProjectApp')
 	        url: host + '/project/' + projectId,
 	      };
         return $http(req);
+      },
+
+      joinProject: function (userId, projectId) {
+				var req = {
+	        method: 'POST',
+	        url: host + '/project/' + projectId + '/participants',
+					params: {userId}
+	      };
+        return $http(req);
       }
     };
   });

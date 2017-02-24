@@ -35,11 +35,27 @@ angular.module('nodeProjectApp')
 			$scope.$apply();
 		});
 
-    $scope.loadProject = function() {
+		$scope.joinProject = function () {
+			serviceAjax.joinProject($cookies.get('login'), $scope.project._id).then(
+				function successCallback(response) {
+		    	$scope.loadProject();
+				},
+				function errorCallback(response) {
+					$scope.message = 'Erreur';
+				}
+			);
+		};
+
+		$scope.notJoin = function () {
+			return _.indexOf($scope.participants, $cookies.get('login')) == -1;
+		}
+
+    $scope.loadProject = function () {
       serviceAjax.getProject($routeParams.projectId).then(
 				function successCallback(response) {
 					if(response.data.length) {
 						$scope.project = response.data[0];
+						$scope.participants = $scope.project.participants;
 						$scope.messages = _.sortBy($scope.project.messages, [sortMsg]);
 					} else {
 						$scope.message = 'Pas de projets';

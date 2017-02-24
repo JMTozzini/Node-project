@@ -57,6 +57,13 @@ function addMessage(msg, callback) {
 	], callback)
 }
 
+function joinProject(projectId, userId, callback) {
+	async.waterfall([
+		connectDb,
+		update.bind(null, {_id: new ObjectId(projectId)}, {$push: {participants: userId}}, 'projects')
+	], callback)
+}
+
 function createUser(user, callback) {
 	async.waterfall([
 		connectDb,
@@ -112,6 +119,7 @@ module.exports = {
 	getProjects,
 	getProject,
 	updateProject,
+	joinProject,
 	createUser,
 	getUsers,
 	getUser,

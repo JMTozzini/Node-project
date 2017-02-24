@@ -98,6 +98,16 @@ app.put('/project/:projectId', function(req, res) {
 	});
 });
 
+app.post('/project/:projectId/participants', function(req, res) {
+	console.log('Call server POST project participants' + req.params.projectId + ' ' + req.query.userId);
+	mongoLib.joinProject(req.params.projectId, req.query.userId, (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
 io.on('connection', function(socket){
   console.log('a user connected');
 	socket.on('disconnect', function(){
