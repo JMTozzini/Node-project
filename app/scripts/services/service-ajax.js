@@ -21,6 +21,15 @@ angular.module('nodeProjectApp')
         return $http(req);
       },
 
+      updateProject: function (project) {
+				var req = {
+	        method: 'PUT',
+	        url: host + '/project/' + project._id,
+					data: project
+	      };
+        return $http(req);
+      },
+
       getUser: function (user) {
 				var req = {
 	        method: 'GET',
@@ -67,6 +76,15 @@ angular.module('nodeProjectApp')
 				var req = {
 	        method: 'GET',
 	        url: host + '/project/' + projectId,
+	      };
+        return $http(req);
+      },
+
+      joinProject: function (userId, projectId) {
+				var req = {
+	        method: 'POST',
+	        url: host + '/project/' + projectId + '/participants',
+					params: {userId}
 	      };
         return $http(req);
       }

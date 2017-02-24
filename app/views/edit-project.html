@@ -1,8 +1,8 @@
-<md-dialog aria-label="Create project" style="min-width:75%;">
+<md-dialog aria-label="Edit project" style="min-width:75%;">
   <form ng-cloak>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Créer un projet</h2>
+        <h2>Éditer un projet</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon aria-label="Close dialog">
@@ -30,7 +30,7 @@
     <md-dialog-actions layout="row">
 			<md-button class="md-primary" type="submit" ng-click="reset()">Effacer</md-button>
       <span flex></span>
-			<md-button class="md-raised md-primary" type="submit" ng-click="create(project)">Créer</md-button>
+			<md-button class="md-raised md-primary" type="submit" ng-click="update(project)">Mettre à jour</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>

@@ -12,7 +12,8 @@ app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x
 
 app.all('*', (req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
 	next();
 });
 
@@ -79,6 +80,27 @@ app.get('/projects', function(req, res) {
 app.get('/project/:projectId', function(req, res) {
 	console.log('Call server GET project ' + req.params.projectId);
 	mongoLib.getProject(req.params.projectId, (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
+
+app.put('/project/:projectId', function(req, res) {
+	console.log('Call server PUT project ' + req.params.projectId);
+	mongoLib.updateProject(req.params.projectId, _.omit(req.body, ['_id']), (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
+app.post('/project/:projectId/participants', function(req, res) {
+	console.log('Call server POST project participants' + req.params.projectId + ' ' + req.query.userId);
+	mongoLib.joinProject(req.params.projectId, req.query.userId, (err, data) => {
 		if (err) {
 			return console.error(err);
 		}
