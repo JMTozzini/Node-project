@@ -38,6 +38,15 @@ angular.module('nodeProjectApp')
         return $http(req);
       },
 
+      updateProfile: function (userId, user) {
+				var req = {
+	        method: 'PUT',
+	        url: host + '/userById/' + userId,
+					data: {user}
+	      };
+        return $http(req);
+      },
+
       getUsers: function () {
 				var req = {
 	        method: 'GET',

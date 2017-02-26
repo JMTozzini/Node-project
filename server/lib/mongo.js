@@ -114,6 +114,13 @@ function updateProject(projectId, data, callback) {
 	], callback)
 }
 
+function updateProfile(userId, data, callback) {
+	async.waterfall([
+		connectDb,
+		update.bind(null, {_id: new ObjectId(userId)}, data, 'users')
+	], callback)
+}
+
 module.exports = {
 	insertProject,
 	getProjects,
@@ -123,5 +130,6 @@ module.exports = {
 	createUser,
 	getUsers,
 	getUser,
+	updateProfile,
 	addMessage
 };
