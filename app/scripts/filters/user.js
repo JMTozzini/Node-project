@@ -13,6 +13,6 @@ angular.module('nodeProjectApp')
     return function (users, id) {
 			var user = _.find(users, {_id: id});
 
-      return _.get(user, 'firstName') + ' ' + _.get(user, 'lastName') + ' (' + _.get(user, 'login') + ')';
+      return _.get(user, 'firstName', '') + ' ' + _.get(user, 'lastName', '') + ' (' + _.get(user, 'login', '') + ')';
     };
   });
