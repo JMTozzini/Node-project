@@ -1,0 +1,40 @@
+<md-dialog aria-label="Edit profile" style="min-width:75%;">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Éditer votre profile</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">
+						<svg style="width:24px;height:24px" viewBox="0 0 24 24">
+						  <path fill="#FFFFFF" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+						</svg>
+					</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content style="padding:20px;">
+      <div class="md-dialog-content" layout="column">
+				<h3 flex>{{users | user:userId}}</h3>
+				<md-input-container flex>
+					<label>Prénom</label>
+					<input ng-model="user.firstName"/>
+				</md-input-container>
+				<md-input-container flex>
+					<label>Nom</label>
+					<input ng-model="user.lastName"/>
+				</md-input-container>
+				<md-input-container flex>
+					<label>Courriel</label>
+					<input ng-model="user.email"/>
+				</md-input-container>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+			<md-button class="md-raised md-primary" type="submit" ng-click="update()">Mettre à jour</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

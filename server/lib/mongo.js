@@ -32,6 +32,16 @@ function update(query, data, collectionName, db, callback) {
 	});
 }
 
+function remove(query, collectionName, db, callback) {
+	var collection = db.collection(collectionName);
+	collection.remove(query, (err, result) => {
+		if(err) {
+			return callback(err);
+		}
+		callback(null, result);
+	});
+}
+
 function get(query, collectionName, db, callback) {
 	var collection = db.collection(collectionName);
 	collection.find(query)
@@ -114,14 +124,30 @@ function updateProject(projectId, data, callback) {
 	], callback)
 }
 
+function deleteProject(projectId, callback) {
+	async.waterfall([
+		connectDb,
+		remove.bind(null, {_id: new ObjectId(projectId)}, 'projects')
+	], callback)
+}
+
+function updateProfile(userId, data, callback) {
+	async.waterfall([
+		connectDb,
+		update.bind(null, {_id: new ObjectId(userId)}, data, 'users')
+	], callback)
+}
+
 module.exports = {
 	insertProject,
 	getProjects,
 	getProject,
 	updateProject,
+	deleteProject,
 	joinProject,
 	createUser,
 	getUsers,
 	getUser,
+	updateProfile,
 	addMessage
 };

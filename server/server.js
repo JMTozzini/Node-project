@@ -57,6 +57,16 @@ app.get('/userById/:id', function(req, res) {
 	});
 });
 
+app.put('/userById/:id', function(req, res) {
+	console.log('Call server PUT user by id ' + req.params.id);
+	mongoLib.updateProfile(req.params.id, _.omit(req.body.user, ['_id']), (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
 app.post('/user', function(req, res) {
 	console.log('Call server POST create user ' + req.body.user);
 	mongoLib.createUser(req.body.user, (err, data) => {
@@ -91,6 +101,16 @@ app.get('/project/:projectId', function(req, res) {
 app.put('/project/:projectId', function(req, res) {
 	console.log('Call server PUT project ' + req.params.projectId);
 	mongoLib.updateProject(req.params.projectId, _.omit(req.body, ['_id']), (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
+app.delete('/project/:projectId', function(req, res) {
+	console.log('Call server DELETE project ' + req.params.projectId);
+	mongoLib.deleteProject(req.params.projectId, (err, data) => {
 		if (err) {
 			return console.error(err);
 		}

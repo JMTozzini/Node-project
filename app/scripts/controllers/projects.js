@@ -16,6 +16,7 @@ angular.module('nodeProjectApp')
 
 		// $scope.showBack = false;
 		// $scope.showChat = false;
+		$scope.showEditProfile = true;
 
 		$scope.getUsers = function(userId) {
 			serviceAjax.getUsers().then(
@@ -56,6 +57,27 @@ angular.module('nodeProjectApp')
 
 		$scope.openProject = function(projectId) {
 			$location.path('/project/' + projectId);
+		}
+
+		$scope.deleteProject = function(ev, projectId) {
+			var confirm = $mdDialog.confirm()
+				.title('Confirmer la suppression ?')
+				// .textContent('All of the banks have agreed to forgive you your debts.')
+				.ariaLabel('Remove project')
+				.targetEvent(ev)
+				.ok('Confirmer')
+				.cancel('Non');
+
+			$mdDialog.show(confirm).then(function() {
+	      serviceAjax.deleteProject(projectId).then(
+					function successCallback(response) {
+				    $scope.loadProjects();
+					},
+					function errorCallback(response) {
+					}
+				);
+			}, function() {
+			});
 		}
 
 		$scope.open = true;
@@ -99,5 +121,42 @@ angular.module('nodeProjectApp')
     	$scope.cancel = function() {
 	      $mdDialog.cancel();
 	    };
+		}
+
+		$scope.editProfile = function(ev) {
+			$mdDialog.show({
+				controller: editProfileCtrl,
+				templateUrl: '../../views/edit-profile.html',
+				parent: angular.element(document.body),
+				targetEvent: ev,
+				clickOutsideToClose: true,
+				locals: {users: $scope.users},
+				fullscreen: $scope.customFullscreen // Only for -xs, -sm breakpoints.
+			}).then(function() {
+			});
+		};
+
+		function editProfileCtrl($scope, $mdDialog, $cookies, users) {
+
+			$scope.update = function() {
+				// var userToUpdate = _.merge($scope.user, _.find($scope.users, {_id: $scope.userId}));
+				serviceAjax.updateProfile($scope.userId, $scope.user).then(
+					function successCallback(response) {
+						$mdDialog.hide();
+					},
+					function errorCallback(response) {
+					}
+				);
+			};
+
+			$scope.userId = $cookies.get('login');
+
+			$scope.users = users;
+
+			$scope.user = _.find($scope.users, {_id: $scope.userId});
+
+			$scope.cancel = function() {
+				$mdDialog.cancel();
+			};
 		}
   });
