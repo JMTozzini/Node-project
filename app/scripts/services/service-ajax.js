@@ -30,6 +30,14 @@ angular.module('nodeProjectApp')
         return $http(req);
       },
 
+      deleteProject: function (projectId) {
+				var req = {
+	        method: 'DELETE',
+	        url: host + '/project/' + projectId
+	      };
+        return $http(req);
+      },
+
       getUser: function (user) {
 				var req = {
 	        method: 'GET',

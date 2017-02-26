@@ -108,6 +108,16 @@ app.put('/project/:projectId', function(req, res) {
 	});
 });
 
+app.delete('/project/:projectId', function(req, res) {
+	console.log('Call server DELETE project ' + req.params.projectId);
+	mongoLib.deleteProject(req.params.projectId, (err, data) => {
+		if (err) {
+			return console.error(err);
+		}
+		res.send(data);
+	});
+});
+
 app.post('/project/:projectId/participants', function(req, res) {
 	console.log('Call server POST project participants' + req.params.projectId + ' ' + req.query.userId);
 	mongoLib.joinProject(req.params.projectId, req.query.userId, (err, data) => {

@@ -3,12 +3,18 @@
 	<md-list flex>
 	  <md-subheader class="md-no-sticky">Tous les Projets</md-subheader>
 		<md-divider/>
-	  <md-list-item class="md-3-line" ng-repeat="project in projects" ng-click="openProject(project._id)" >
-	    <div class="md-list-item-text" layout="column" style="padding:15px;">
+		<md-list-item class="secondary-button-padding" ng-repeat="project in projects" ng-click="openProject(project._id)">
+	    <div>
 	      <h3>{{project.name}}</h3>
-				<h4 flex>{{users | user:project.owner}}</h4>
+				<h4>{{users | user:project.owner}}</h4>
 				<p>{{project.description}}</p>
 	    </div>
+			<span flex></span>
+			<md-button ng-click="deleteProject($event, project._id)">
+				<svg style="width:24px;height:24px" viewBox="0 0 24 24" flex>
+					<path fill="#000000" d="M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z" />
+				</svg>
+			</md-button>
 	  </md-list-item>
 	</md-list>
 	<md-button

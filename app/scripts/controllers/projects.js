@@ -59,6 +59,27 @@ angular.module('nodeProjectApp')
 			$location.path('/project/' + projectId);
 		}
 
+		$scope.deleteProject = function(ev, projectId) {
+			var confirm = $mdDialog.confirm()
+				.title('Confirmer la suppression ?')
+				// .textContent('All of the banks have agreed to forgive you your debts.')
+				.ariaLabel('Remove project')
+				.targetEvent(ev)
+				.ok('Confirmer')
+				.cancel('Non');
+
+			$mdDialog.show(confirm).then(function() {
+	      serviceAjax.deleteProject(projectId).then(
+					function successCallback(response) {
+				    $scope.loadProjects();
+					},
+					function errorCallback(response) {
+					}
+				);
+			}, function() {
+			});
+		}
+
 		$scope.open = true;
 
 		$scope.customFullscreen = false;
