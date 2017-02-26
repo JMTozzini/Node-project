@@ -8,7 +8,7 @@
  * Controller of the nodeProjectApp
  */
 angular.module('nodeProjectApp')
-  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, $cookies, $mdDialog, moment, serviceAjax) {
+  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, $cookies, $mdDialog, geolocation, moment, NgMap, serviceAjax) {
 
 		$scope.backProjects = function() {
 			$location.path('/projects');
@@ -34,6 +34,16 @@ angular.module('nodeProjectApp')
 			$scope.msg = '';
 			$scope.$apply();
 		});
+
+		geolocation.getLocation().then(function(data){
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    });
+
+		// NgMap.getMap().then(function(map) {
+	  //   console.log(map.getCenter());
+	  //   console.log('markers', map.markers);
+	  //   console.log('shapes', map.shapes);
+	  // });
 
 		$scope.joinProject = function () {
 			serviceAjax.joinProject($cookies.get('login'), $scope.project._id).then(
