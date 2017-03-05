@@ -35,15 +35,10 @@ angular.module('nodeProjectApp')
 			$scope.$apply();
 		});
 
+
 		geolocation.getLocation().then(function(data){
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
     });
-
-		// NgMap.getMap().then(function(map) {
-	  //   console.log(map.getCenter());
-	  //   console.log('markers', map.markers);
-	  //   console.log('shapes', map.shapes);
-	  // });
 
 		$scope.joinProject = function () {
 			serviceAjax.joinProject($cookies.get('login'), $scope.project._id).then(
@@ -76,7 +71,6 @@ angular.module('nodeProjectApp')
 				}
 			);
     };
-    $scope.loadProject();
 
 		$scope.getUsers = function(userId) {
 			serviceAjax.getUsers().then(
@@ -85,6 +79,7 @@ angular.module('nodeProjectApp')
 						$scope.message = 'Utilisateur inexistant';
 					} else {
 						$scope.users = response.data;
+			    	$scope.loadProject();
 					}
 				},
 				function errorCallback(response) {

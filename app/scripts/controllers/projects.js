@@ -17,6 +17,7 @@ angular.module('nodeProjectApp')
 		// $scope.showBack = false;
 		// $scope.showChat = false;
 		$scope.showEditProfile = true;
+		$scope.showLogout = true;
 
 		$scope.getUsers = function(userId) {
 			serviceAjax.getUsers().then(
@@ -78,6 +79,11 @@ angular.module('nodeProjectApp')
 				);
 			}, function() {
 			});
+		}
+
+		$scope.logout = function() {
+			$cookies.remove('login');
+			$location.path('/');
 		}
 
 		$scope.open = true;
