@@ -17,7 +17,9 @@ angular
     'ngSanitize',
 		'ngMaterial',
 		'ngMessages',
-		'angularMoment'
+		'angularMoment',
+		'geolocation',
+		'ngMap'
   ])
   .config(function ($routeProvider) {
     $routeProvider

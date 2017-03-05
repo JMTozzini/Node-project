@@ -8,7 +8,7 @@
  * Controller of the nodeProjectApp
  */
 angular.module('nodeProjectApp')
-  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, $cookies, $mdDialog, moment, serviceAjax) {
+  .controller('ProjectCtrl', function($scope, $location, $routeParams, $mdSidenav, $cookies, $mdDialog, geolocation, moment, NgMap, serviceAjax) {
 
 		$scope.backProjects = function() {
 			$location.path('/projects');
@@ -34,6 +34,11 @@ angular.module('nodeProjectApp')
 			$scope.msg = '';
 			$scope.$apply();
 		});
+
+
+		geolocation.getLocation().then(function(data){
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    });
 
 		$scope.joinProject = function () {
 			serviceAjax.joinProject($cookies.get('login'), $scope.project._id).then(
@@ -66,7 +71,6 @@ angular.module('nodeProjectApp')
 				}
 			);
     };
-    $scope.loadProject();
 
 		$scope.getUsers = function(userId) {
 			serviceAjax.getUsers().then(
@@ -75,6 +79,7 @@ angular.module('nodeProjectApp')
 						$scope.message = 'Utilisateur inexistant';
 					} else {
 						$scope.users = response.data;
+			    	$scope.loadProject();
 					}
 				},
 				function errorCallback(response) {

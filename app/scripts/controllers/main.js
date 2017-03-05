@@ -8,15 +8,26 @@
  * Controller of the nodeProjectApp
  */
 angular.module('nodeProjectApp')
-  .controller('MainCtrl', function ($scope, $location, $cookies, serviceAjax) {
+  .controller('MainCtrl', function ($scope, $location, $cookies, serviceAjax, geolocation) {
+
+		$scope.updateLocation = function (user) {
+			geolocation.getLocation()
+				.then(function(data){
+						var userWithLocation = _.merge(user, {lat:data.coords.latitude, long:data.coords.longitude})
+		      	return serviceAjax.updateProfile(user._id, userWithLocation);
+		    });
+		}
 
 		$scope.connect = function (user) {
 			serviceAjax.getUser(user.login).then(
 				function successCallback(response) {
-					if (!response.data.length) {
+					if (!_.get(response,'data', []).length) {
 						$scope.message = 'Utilisateur inexistant';
 					} else {
-						$cookies.put('login', response.data[0]._id);
+						var user = response.data[0];
+
+						$scope.updateLocation(user);
+						$cookies.put('login', user._id);
 						$location.path('/projects');
 					}
 				},
